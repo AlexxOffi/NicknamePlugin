@@ -30,6 +30,7 @@ public class NickCommand extends AbstractAsyncCommand {
     public NickCommand() {
         super("nick", "Change your nickname");
 
+        this.requirePermission("nickname.use");
         this.nicknameArg = this.withRequiredArg("nickname", "New nickname (or 'reset' to clear)",
                 StringArgumentType.INSTANCE
         );
