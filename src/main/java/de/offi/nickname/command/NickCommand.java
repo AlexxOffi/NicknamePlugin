@@ -12,10 +12,15 @@ import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+import de.offi.nickname.HyNickname;
 import de.offi.nickname.cache.NicknameCache;
 import de.offi.nickname.command.argument.StringArgumentType;
 import de.offi.nickname.component.NicknameComponent;
 import de.offi.nickname.util.MessageUtil;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.PlayerSaveResult;
+import net.luckperms.api.model.user.User;
 
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -26,11 +31,16 @@ import java.util.concurrent.CompletableFuture;
 public class NickCommand extends AbstractAsyncCommand {
     
     private final RequiredArg<String> nicknameArg;
+  
+    private final LuckPerms api;
     
-    public NickCommand() {
+    public NickCommand(LuckPerms api) {
         super("nick", "Change your nickname");
 
         this.requirePermission("nickname.use");
+   
+        this.api = api;
+
         this.nicknameArg = this.withRequiredArg("nickname", "New nickname (or 'reset' to clear)",
                 StringArgumentType.INSTANCE
         );
@@ -72,6 +82,7 @@ public class NickCommand extends AbstractAsyncCommand {
             if (newNickname.equalsIgnoreCase("reset")) {
                 if (nicknameComponent != null && nicknameComponent.hasNickname()) {
                     nicknameComponent.clearNickname();
+                    api.getUserManager().savePlayerData(playerUUID, sender.getDisplayName());
                     NicknameCache.removeNickname(playerUUID);
                     MessageUtil.success(player, "Nickname reset.");
                 } else {
@@ -90,6 +101,13 @@ public class NickCommand extends AbstractAsyncCommand {
                 return;
             }
 
+
+            User user = api.getUserManager().getUser(playerUUID);
+            System.out.println("Current username is: " + user.getUsername());
+            System.out.println(user.getCachedData().getMetaData().getPrefix());
+
+            //System.out.println("Display name is: " + api.getUserManager().getUser(playerUUID).getCachedData().getMetaData().getPrefix());
+
             if (nicknameComponent == null) {
                 nicknameComponent = new NicknameComponent(newNickname);
                 store.addComponent(
@@ -98,10 +116,26 @@ public class NickCommand extends AbstractAsyncCommand {
                     nicknameComponent
                 );
                 NicknameCache.setNickname(playerUUID, newNickname);
+                api.getUserManager().savePlayerData(playerUUID, newNickname)
+                .thenAccept(result -> {
+                    if (result.includes(PlayerSaveResult.Outcome.USERNAME_UPDATED)){
+
+                    }
+                });
+                //api.getUserManager().savePlayerData(playerUUID, newNickname);
+                System.out.println("Saved nickname for " + player.getDisplayName() + ": " + newNickname);
                 MessageUtil.success(player, "Nickname set: " + newNickname);
             } else {
                 nicknameComponent.setNickname(newNickname);
                 NicknameCache.setNickname(playerUUID, newNickname);
+                //api.getUserManager().savePlayerData(playerUUID, newNickname);
+                api.getUserManager().savePlayerData(playerUUID, newNickname)
+                .thenAccept(result -> {
+                    if (result.includes(PlayerSaveResult.Outcome.USERNAME_UPDATED)){
+                        System.out.println(result);
+                    }
+                });
+                System.out.println("Saved nickname for " + player.getDisplayName() + ": " + newNickname);
                 MessageUtil.sendCombined(player, MessageUtil.combineMessages(player, Message.raw("Nickname changed to: ").color(Color.GREEN), Message.raw(newNickname).color(Color.CYAN)));
       
             }
