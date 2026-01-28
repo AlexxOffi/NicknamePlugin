@@ -1,17 +1,17 @@
-## HyNickname
+# HyNickname
 
-A nickname plugin for Hytale, working with Luckperms.
+## A nickname plugin for Hytale, working with Luckperms.
 
-# Hytale Plugin Template
+## Hytale Plugin Template
 
 A template for Hytale java plugins. Created by [Up](https://github.com/UpcraftLP), and slightly modified by Kaupenjoe.
 
-# Nickname Plugin
+## Nickname Plugin
 
 Started off forking https://github.com/Corin-alt/HytaleNickNameMod
 v1.0.0 offered a simple nickname functionality
 
-# v1.1.0 LuckPerms integration
+## v1.1.0 LuckPerms integration
 
 v1.1.0 offers a full LuckPerms Chat Formatter integration.
 To enable it, you first need to disable LuckPerms own formatter in the config
@@ -21,7 +21,7 @@ When starting the server with HyNickname, it automatically created a folder call
 In the config.yml, you can enable/disable the formatter. It's enabled by default.
 You also find a "forbiddennames.yml" in which you can add words or patterns you don't want users to use.
 
-# Permissions
+## Permissions
 
 To allow a user to use the Nickname functionality, he requires the permission
 "nickname.use"
@@ -29,7 +29,7 @@ To allow a user to use the Nickname functionality, he requires the permission
 There's also the option to remove another user's nickname, which requires
 "nickname.admin.reset"
 
-# Usage
+## Usage
 
 To set one's own nickname, run "/nick [name]"
 To reset one's own nickname, run "/nick reset"
