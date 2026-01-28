@@ -46,7 +46,7 @@ public class NickCommand extends AbstractAsyncCommand {
     
     @SuppressWarnings("null")
     public NickCommand(LuckPerms api) {
-        super("nick", "Change your nickname");
+        super("nick", "Change your nickname ");
 
         this.requirePermission("nickname.use");
    
