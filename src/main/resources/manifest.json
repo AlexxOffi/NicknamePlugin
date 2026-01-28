@@ -10,9 +10,9 @@
   ],
   "Website": "${plugin_website}",
   "ServerVersion": "${server_version}",
-  "Dependencies": {},
+  "Dependencies": { "LuckPerms:LuckPerms": "*" },
   "OptionalDependencies": {},
   "DisabledByDefault": false,
-  "IncludesAssetPack": true,
+  "IncludesAssetPack": false,
   "Main": "${plugin_main_entrypoint}"
 }

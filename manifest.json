@@ -1,0 +1,18 @@
+{
+  "Group": "Offi",
+  "Name": "HyNickname",
+  "Version": "1.0.4",
+  "Description": "A Nickname plugin for Hytale",
+  "Authors": [
+    {
+      "Name": "It's you!"
+    }
+  ],
+  "Website": "",
+  "ServerVersion": "*",
+  "Dependencies": { "LuckPerms:LuckPerms": "*" },
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "IncludesAssetPack": true,
+  "Main": "de.offi.nickname.HyNickname"
+}
