@@ -87,8 +87,8 @@ public class HyNickname extends JavaPlugin {
     }
 
     private void registerListeners() {
-        this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEvent::onPlayerReady);
         this.getEventRegistry().registerGlobal(PlayerChatEvent.class, PlayerEvent::onChat);
+        this.getEventRegistry().registerGlobal(PlayerReadyEvent.class, PlayerEvent::onPlayerReady);
     }
 
     public static HyNickname getInstance() { return instance; }

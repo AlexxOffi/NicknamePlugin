@@ -160,10 +160,7 @@ public class NickCommand extends AbstractAsyncCommand {
 
 
             User user = api.getUserManager().getUser(playerUUID);
-            System.out.println("Current username is: " + user.getUsername());
-            System.out.println(user.getCachedData().getMetaData().getPrefix());
 
-            //System.out.println("Display name is: " + api.getUserManager().getUser(playerUUID).getCachedData().getMetaData().getPrefix());
 
             if (nicknameComponent == null) {
                 nicknameComponent = new NicknameComponent(newNickname);
@@ -180,7 +177,7 @@ public class NickCommand extends AbstractAsyncCommand {
                     }
                 });
                 //api.getUserManager().savePlayerData(playerUUID, newNickname);
-                System.out.println("Saved nickname for " + player.getDisplayName() + ": " + newNickname);
+         
                 MessageUtil.success(player, "Nickname set: " + newNickname);
             } else {
                 nicknameComponent.setNickname(newNickname);
@@ -189,10 +186,10 @@ public class NickCommand extends AbstractAsyncCommand {
                 api.getUserManager().savePlayerData(playerUUID, newNickname)
                 .thenAccept(result -> {
                     if (result.includes(PlayerSaveResult.Outcome.USERNAME_UPDATED)){
-                        System.out.println(result);
+                    
                     }
                 });
-                System.out.println("Saved nickname for " + player.getDisplayName() + ": " + newNickname);
+               
                 MessageUtil.sendCombined(player, MessageUtil.combineMessages(player, Message.raw("Nickname changed to: ").color(Color.GREEN), Message.raw(newNickname).color(Color.CYAN)));
       
             }

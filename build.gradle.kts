@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "de.offi"
-version = "1.1.1"
+version = "1.1.2"
 val javaVersion = 25
 
 repositories {
@@ -21,9 +21,11 @@ dependencies {
     compileOnly("net.luckperms:api:5.5")
 
     // Bundle kyori with jar (only text-minimessage)
-    compileOnly("net.kyori:adventure-api:4.26.1")
-    implementation("net.kyori:adventure-text-minimessage:4.26.1")
+    implementation("net.kyori:adventure-api:4.26.1")
     compileOnly("net.kyori:adventure-text-serializer-legacy:4.26.1")
+    implementation("net.kyori:adventure-text-minimessage:4.26.1")
+    implementation("net.kyori:examination-api:1.3.0")
+    implementation("net.kyori:examination-string:1.3.0")
     implementation("org.yaml:snakeyaml:2.2")
 }
 hytale {
@@ -45,13 +47,8 @@ java {
 tasks.shadowJar {
     archiveClassifier.set("")
 
-    // Include only kyori and snakeyaml
-    dependencies {
-        include(dependency("net.kyori:adventure-api"))
-        include(dependency("net.kyori:adventure-text-minimessage"))
-        include(dependency("net.kyori:adventure-text-serializer-legacy"))
-        include(dependency("org.yaml:snakeyaml"))
-    }
+    // Explicitly include from all dependencies
+    configurations = listOf(project.configurations.runtimeClasspath.get())
 
     // Exclude everything we don't need
     exclude("com/hypixel/**")
@@ -69,7 +66,6 @@ tasks.shadowJar {
     exclude("org/jline/**")
     exclude("ch/**")
     exclude("javax/**")
-    exclude("joptsimple/**")
     exclude("META-INF/native/**")
     exclude("META-INF/maven/**")
     exclude("**/**.so")
@@ -87,7 +83,7 @@ tasks.shadowJar {
                 .getOrElse(version.toString())
     }
 
-    destinationDirectory.set(File(System.getProperty("user.home"), "Documents/code-repo/Hytale/hytale_server/Server/mods"))
+
 }
 
 // shadowJar statt jar als Standard

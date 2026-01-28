@@ -66,12 +66,15 @@ public class PlayerEvent {
 
     
     public static void onChat(PlayerChatEvent event) {
+
         if (!HyNickname.getInstance().getConfig().enableChatFormatter) {
+
             return;
         }
         LuckPerms lp = LuckPermsProvider.get();
 
         event.setFormatter((playerRef, message) -> {
+   
             
             
             String displayName = NicknameCache.getNickname(playerRef.getUuid());
@@ -80,23 +83,32 @@ public class PlayerEvent {
             CachedMetaData metaData = playerAdapter.getMetaData(playerRef);
             String prefix = metaData.getPrefix() == null ? "" : metaData.getPrefix();
             String suffix = metaData.getSuffix() == null ? "" : metaData.getSuffix();
-            System.out.println(prefix);
-            
+           
+      
 
             if (displayName == null) {
                 displayName = playerRef.getUsername();
             } 
+       
+            Component component = null;
+            try {
+                
+                System.out.flush();
+                component = MiniMessage.miniMessage().deserialize(
+                        format,
+                        parse("prefix", prefix),
+                        parse("suffix", suffix),
+                        Placeholder.unparsed("username", displayName),
+                        Placeholder.unparsed("message", message)
+                );
+            } catch (Throwable e) {
+                System.err.println("Error creating component: " + e.getClass().getName() + ": " + e.getMessage());
+                e.printStackTrace(System.err);
+                System.err.flush();
+                return null;
+            }
             
-        
-
-            Component component = MiniMessage.miniMessage().deserialize(
-                    format,
-                    parse("prefix", prefix),
-                    parse("suffix", suffix),
-                    Placeholder.unparsed("username", displayName),
-                    Placeholder.unparsed("message", message)
-            );
-            
+       
            
 
             return toHytaleMessage(component);
