@@ -55,14 +55,7 @@ public class NickCommand extends AbstractAsyncCommand {
 
         firstArg = this.withRequiredArg("nickname", "Nickname", ArgTypes.STRING);
         secondArg = this.withOptionalArg("target", "nickname.arg.target", ArgTypes.STRING);
-        
-        /*this.nicknameArg = this.withRequiredArg("nickname", "New nickname (or 'reset' to clear)",
-                StringArgumentType.INSTANCE
-        );
-        this.resetArg = this.withOptionalArg("reset", "Reset nickname",
-                ResetArgumentType.INSTANCE,
-                "reset"
-        );*/
+
     }
     
   
