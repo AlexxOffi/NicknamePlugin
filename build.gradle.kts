@@ -4,7 +4,7 @@ plugins{
     id("io.github.goooler.shadow") version "8.1.8"
 }
 group = "de.offi"
-version = "1.0.2"
+version = "1.1.0"
 val javaVersion = 25
 
 repositories {

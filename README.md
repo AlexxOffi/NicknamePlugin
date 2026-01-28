@@ -1,16 +1,33 @@
 # Hytale Plugin Template
 
-A template for Hytale java plugins. Created by [Up](https://github.com/UpcraftLP), and slightly modified by Kaupenjoe. 
+A template for Hytale java plugins. Created by [Up](https://github.com/UpcraftLP), and slightly modified by Kaupenjoe.
 
-### Configuring the Template
-If you for example installed the game in a non-standard location, you will need to tell the project about that.
-The recommended way is to create a file at `%USERPROFILE%/.gradle/gradle.properties` to set these properties globally.
+# Nickname Plugin
 
-```properties
-# Set a custom game install location
-hytale.install_dir=path/to/Hytale
+Started off forking https://github.com/Corin-alt/HytaleNickNameMod
+v1.0.0 offered a simple nickname functionality
 
-# Speed up the decompilation process significantly, by only including the core hytale packages.
-# Recommended if decompiling the game takes a very long time on your PC.
-hytale.decompile_partial=true
-```
+# v1.1.0 LuckPerms integration
+
+v1.1.0 offers a full LuckPerms Chat Formatter integration.
+To enable it, you first need to disable LuckPerms own formatter in the config
+(LuckPerms_LuckPerms/config.yml -> chat-formatter.enabled: false)
+
+When starting the server with HyNickname, it automatically created a folder called "Offi_HyNickname".
+In the config.yml, you can enable/disable the formatter. It's enabled by default.
+You also find a "forbiddennames.yml" in which you can add words or patterns you don't want users to use.
+
+# Permissions
+
+To allow a user to use the Nickname functionality, he requires the permission
+"nickname.use"
+
+There's also the option to remove another user's nickname, which requires
+"nickname.admin.reset"
+
+# Usage
+
+To set one's own nickname, run "/nick [name]"
+To reset one's own nickname, run "/nick reset"
+
+For admins: To reset someone else's nickname, run "/nick reset --target=[name]"

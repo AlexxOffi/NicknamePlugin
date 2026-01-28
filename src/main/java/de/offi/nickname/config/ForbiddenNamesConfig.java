@@ -5,8 +5,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class ForbiddenNamesConfig {
-    private List<String> names = new ArrayList<>(List.of("Admin", "Moderator", "Staff", "Owner"));
-    private List<String> patterns = new ArrayList<>(List.of(".*fuck.*", ".*shit.*"));
+    private List<String> names = new ArrayList<>(List.of("Admin", "Moderator", "Staff", "Owner", "ass"));
+    private List<String> patterns = new ArrayList<>(List.of(
+        ".*fuck.*", 
+        ".*shit.*",
+        ".*asshole.*",
+        ".*bastard.*",
+        ".*bitch.*",
+        ".*cunt.*",
+        ".*dick.*",
+        ".*faggot.*",
+        ".*nigger.*",
+        ".*nigga.*"
+    ));
+
 
     public ForbiddenNamesConfig() {}
 

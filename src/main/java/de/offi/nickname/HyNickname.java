@@ -26,7 +26,6 @@ public class HyNickname extends JavaPlugin {
 
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     protected LuckPerms luckPerms;
-    private NickCommand nickCommand;
     private static HyNickname instance;
 
     private ConfigManager configManager;
@@ -70,7 +69,11 @@ public class HyNickname extends JavaPlugin {
     }
 
     public MainConfig getConfig() { return config; }
-    public ForbiddenNamesConfig getForbiddenNames() { return forbiddenNames; }
+
+    public ForbiddenNamesConfig getForbiddenNames() { 
+        this.forbiddenNames = configManager.load("forbiddennames.yml", ForbiddenNamesConfig.class);
+        return forbiddenNames; 
+    }
 
     @Override
     protected void start() {
@@ -79,8 +82,8 @@ public class HyNickname extends JavaPlugin {
     }
     
     private void registerCommands() {
-        this.nickCommand = new NickCommand(luckPerms);
-        this.getCommandRegistry().registerCommand(nickCommand);
+    
+        this.getCommandRegistry().registerCommand(new NickCommand(luckPerms));
     }
 
     private void registerListeners() {
